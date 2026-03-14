@@ -24,3 +24,9 @@ Resolved "Error 2013 (Lost connection)" by configuring precise HAProxy client an
 
 ### 4. Strict Hostname Resolution
 Overcame MariaDB's strict reverse-DNS connection rejections by explicitly mapping the proxy's VIP application users to specific fully qualified domain names (FQDNs) rather than relying on wildcard IP rules.
+
+### 5. Security & Firewall Configuration
+Secured the infrastructure by implementing strict network-layer firewall rules (UFW/iptables) to isolate the database tier from the public internet.
+* **Public Access:** Restricted public ingress strictly to the web application and monitoring interfaces.
+* **Internal Subnet Isolation:** Locked down direct MariaDB communication (Port 3306) and Galera cluster synchronization ports (4567, 4568, 4444) strictly to the internal network IPs.
+* **Proxy Layer Security:** Isolated the HAProxy routing port (Port 3307) to localhost and approved application servers, completely neutralizing direct external database connection attempts.
